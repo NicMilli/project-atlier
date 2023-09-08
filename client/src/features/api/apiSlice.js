@@ -51,32 +51,42 @@ export const api = createApi({
       async queryFn(productId, _queryApi, _extraOptions, fetchWithBQ) {
         // Gets related product id's from current product
         const related = await fetchWithBQ(`/products/${productId}/related`);
-        if (related.error) return { error: related.error };
+        if (related.error || related.data.length === 0) return { error: related.error };
         // Iterates through list of related products
         const allItems = await Promise.all(related.data.map(async (item) => {
           const relatedItem = {};
           relatedItem.product_id = item;
           // Fetches API data at specific endpoints
-          const itemDetails = await fetchWithBQ(`/products/${item}`);
-          const ratingsDetails = await fetchWithBQ(`/reviews/meta?product_id=${item}`);
-          const allPhotos = await fetchWithBQ(`/products/${item}/styles`);
+          const [itemDetails, ratingsDetails, allPhotos] = await Promise.all([
+            fetchWithBQ(`/products/${item}`), fetchWithBQ(`/reviews/meta?product_id=${item}`), fetchWithBQ(`/products/${item}/styles`)]);
+
+          // const itemDetails = await fetchWithBQ(`/products/${item}`);
+          // const ratingsDetails = await fetchWithBQ(`/reviews/meta?product_id=${item}`);
+          // const allPhotos = await fetchWithBQ(`/products/${item}/styles`);
           // Compiles data for each related item into an object
           itemDetails.data
             ? relatedItem.details = itemDetails.data
             : relatedItem.detailsError = itemDetails.error;
+
           ratingsDetails.data
             ? relatedItem.ratings = ratingsDetails.data
-            : relatedItem.ratingsError = ratingsDetails.error;
-          allPhotos.data
+            : relatedItem.ratings = {
+              ratings: {
+                1: 1,
+                5: 1,
+              },
+            };
+          allPhotos.data?.results && allPhotos.data?.results[0]?.photos
             ? relatedItem.photos = allPhotos.data
-            : relatedItem.photoError = allPhotos.error;
+            : relatedItem.photos = errorPhotos;
+
           return relatedItem;
         }));
         return { data: allItems };
       },
     }),
     addToCart: build.mutation({
-      query: skuId => ({
+      query: (skuId) => ({
         url: '/cart',
         method: 'POST',
         body: { sku_id: parseInt(skuId, 10) },
@@ -93,14 +103,14 @@ export const api = createApi({
       query: (review_id) => ({
         url: `/reviews/${review_id}/helpful`,
         method: 'PUT',
-        body: {review_id},
+        body: { review_id },
       }),
     }),
     reportReview: build.mutation({
       query: (review_id) => ({
         url: `/reviews/${review_id}/report`,
         method: 'PUT',
-        body: {review_id: review_id},
+        body: { review_id },
       }),
     }),
     postNewQuestion: build.mutation({
@@ -162,3 +172,68 @@ export const {
   useHelpfulQNAMutation,
   useReportAnswerMutation,
 } = api;
+
+const errorPhotos = {
+  product_id: '1',
+  results: [
+    {
+      name: 'Forest Green & Black',
+      skus: {
+        1: {
+          size: 'XS',
+          quantity: 8,
+        },
+        2: {
+          size: 'S',
+          quantity: 16,
+        },
+        3: {
+          size: 'M',
+          quantity: 17,
+        },
+        4: {
+          size: 'L',
+          quantity: 10,
+        },
+        5: {
+          size: 'XL',
+          quantity: 15,
+        },
+        6: {
+          size: 'XL',
+          quantity: 4,
+        },
+      },
+      photos: [
+        {
+          url: 'https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          thumbnail_url: 'https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80',
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1534011546717-407bced4d25c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80',
+          thumbnail_url: 'https://images.unsplash.com/photo-1534011546717-407bced4d25c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80',
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1549831243-a69a0b3d39e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2775&q=80',
+          thumbnail_url: 'https://images.unsplash.com/photo-1549831243-a69a0b3d39e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80',
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1527522883525-97119bfce82d?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
+          thumbnail_url: 'https://images.unsplash.com/photo-1527522883525-97119bfce82d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1556648202-80e751c133da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80',
+          thumbnail_url: 'https://images.unsplash.com/photo-1556648202-80e751c133da?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80',
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1532543491484-63e29b3c1f5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80',
+          thumbnail_url: 'https://images.unsplash.com/photo-1532543491484-63e29b3c1f5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80',
+        },
+      ],
+      'default?': 1,
+      style_id: 1,
+      sale_price: null,
+      original_price: 140,
+    },
+  ],
+};

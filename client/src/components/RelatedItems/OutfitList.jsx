@@ -37,6 +37,7 @@ function OutfitList({ outfitIndex }) {
 
   // Produces a card for each item in the outfit
   function renderList(item, index) {
+    console.log(item.meta)
     return (
       <div key={index}>
         {outfitIndex <= index && (

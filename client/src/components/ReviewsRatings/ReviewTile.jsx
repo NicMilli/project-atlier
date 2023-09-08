@@ -109,8 +109,12 @@ function ReviewTile({ reviewsObj }) {
           className={RNRCSS['helpful-text-in-review-tile']}
           onClick={helpfulClickHandler}
         >
-          {' '}Yes{' '}
-          {' ('}{reviewsObj.helpfulness}{') '}
+          {' '}
+          Yes
+          {' '}
+          {' ('}
+          {reviewsObj.helpfulness}
+          {') '}
         </span>
         <div
           className={RNRCSS['report-text-in-review-tile']}

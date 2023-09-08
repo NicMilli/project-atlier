@@ -8,10 +8,11 @@ import QuarterStarsAverageRating from '../ReviewsRatings/QuarterStarsAverageRati
 import StyleList from './StyleList';
 import { handleStateUpdate } from '../../features/products/productsSlice';
 import { useAddToCartMutation, api } from '../../features/api/apiSlice';
-import { newAddToOutfit } from '../../features/related/relatedSlice';
+import { newAddToOutfit, newRemoveFromOutfit } from '../../features/related/relatedSlice';
 
 function Details({ handleScroll }) {
   const [stock, setStock] = useState(true);
+  const [refreshed, setRefreshed] = useState(false);
   const [update] = api.endpoints.getProductStyles.useLazyQuery();
   const {
     selectedStyle,
@@ -23,12 +24,12 @@ function Details({ handleScroll }) {
   const { meta } = useSelector((state) => state.reviews);
 
   const dispatch = useDispatch();
-  let { quantity } = selectedStyle.skus[sku] || 0;
+  let { quantity } = sku !== '' ? selectedStyle.skus[sku] || 0 : 0;
   const [trigger] = useAddToCartMutation();
   const sizeRef = useRef(null);
 
   const checkStock = () => {
-    const values = Object.values(selectedStyle.skus);
+    const values = typeof selectedStyle.skus === 'object' ? Object.values(selectedStyle.skus) : [];
 
     if (values.length > 0) {
       const inStock = values.reduce((accum, val) => accum + val.quantity, 0);
@@ -66,8 +67,13 @@ function Details({ handleScroll }) {
     }
   };
 
-  const handleOutfitClick = () => {
+  const handleAddOutfitClick = () => {
     dispatch(newAddToOutfit({ details, selectedStyle, meta }));
+    setRefreshed(!refreshed);
+  };
+  const handleRemoveOutfitClick = () => {
+    dispatch(newRemoveFromOutfit({ details, selectedStyle, meta }));
+    setRefreshed(!refreshed);
   };
 
   const handleRnrClick = () => {
@@ -118,7 +124,7 @@ function Details({ handleScroll }) {
         <div className="flex">
           <select className="size-selector" aria-label="size-select" name="sku" onChange={handleSizeClick} disabled={!stock} id="sizeBtn" ref={sizeRef} value={sku}>
             <option value={stock ? 'selectSize' : 'outOfStock'}>{stock ? 'Select Size' : 'Out Of Stock'}</option>
-            {Object.keys(selectedStyle.skus).map(
+            {typeof selectedStyle.skus === 'object' && Object.keys(selectedStyle.skus).map(
               (sizeSku) => (
                 <option
                   key={sizeSku}
@@ -143,8 +149,8 @@ function Details({ handleScroll }) {
           <button className="cart-btn button-dark" type="button" aria-label="cart-btn" onClick={handleCartClick}>
             Add to cart
           </button>
-          <button className="outfit-btn button-light" type="button" onClick={handleOutfitClick}>
-            <FaHeart style={{ color: JSON.parse(localStorage.getItem(details.id)) ? 'red' : 'black' }} />
+          <button className="outfit-btn button-light" type="button" onClick={JSON.parse(localStorage.getItem(details.id)) ? handleRemoveOutfitClick : handleAddOutfitClick}>
+            <FaHeart style={{ fill: JSON.parse(localStorage.getItem(details.id)) ? 'red' : 'black' }} />
           </button>
         </div>
       </div>

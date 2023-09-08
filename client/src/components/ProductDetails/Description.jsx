@@ -5,6 +5,10 @@ import { useSelector } from 'react-redux';
 function Description() {
   const { details } = useSelector((state) => state.products);
 
+  if (!details) {
+    return null;
+  }
+
   return (
     <div className="description flex">
       <div className="description-card center">
@@ -13,7 +17,7 @@ function Description() {
       </div>
       <div className="features-card">
         <ol>
-          {details.features.map((item) => {
+          {details?.features?.map((item) => {
             const { feature, value } = item;
             return value ? (
               <li className="feature-item center" key={`${feature}${value}`}>

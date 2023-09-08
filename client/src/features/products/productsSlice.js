@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import { api } from '../api/apiSlice';
 
 const initialState = {
@@ -57,16 +57,9 @@ const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addMatcher(api.endpoints.getProductStyles.matchFulfilled, (state, action) => {
-        // if (state.selectedStyle.style_id === '') {
-        //   state.selectedStyle = action.payload.results[0];
-        // }
-        // if (state.selectedStyle.style_id !== action.payload.results[0].style_id) {
-        //   state.selectedStyle = action.payload.results[0];
-        //   state.selectedImage = state.selectedStyle.photos[state.imageIndex].url;
-        // }
-        state.styles = action.payload.results;
-        state.selectedStyle = state.styles[0];
-        state.selectedImage = state.styles[0].photos[0].url;
+        state.styles = action.payload.results || [];
+        state.selectedStyle = state.styles?.length > 0 ? state.styles[0] : {};
+        state.selectedImage = state.styles?.length > 0 && state.styles[0].photos?.length > 0 ? state.styles[0].photos[0].url : "https://images.unsplash.com/photo-1421941027568-40ab08ee5592?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80";
       })
       .addMatcher(api.endpoints.getSpecificProduct.matchFulfilled, (state, action) => {
         state.details = action.payload;

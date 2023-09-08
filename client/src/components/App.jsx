@@ -1,14 +1,17 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import {
+  BrowserRouter as Router, Routes, Route, Navigate,
+} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
 import ProductDetails from './ProductDetails/ProductDetails';
 import ReviewsAndRatings from './ReviewsRatings/ReviewsAndRatings';
 import QuestionsAnswers from './QuestionsAnswers/QuestionsAnswers';
 import RelatedItems from './RelatedItems/RelatedItems';
 import Navbar from './SharedComponents/Navbar';
 import SiteAnnouncement from './SharedComponents/SiteAnnouncement';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles.css';
 
 function App() {
   const { dark } = useSelector((state) => state.products);
@@ -34,7 +37,7 @@ function App() {
           <SiteAnnouncement />
           <div className="body-no-navbar">
             <Routes>
-              <Route path="/" element={<Navigate to="/40344" />} />
+              <Route path="/" element={<Navigate to="/1" />} />
               <Route path="/NotFound" element={<div>404 not found...</div>} />
               <Route
                 path="/:productId"

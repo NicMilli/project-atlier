@@ -6,7 +6,7 @@ module.exports = {
     const page = req.query.page || 1;
     const count = req.query.count || 5;
     const { sort } = req.query;
-    axios.get(`${process.env.ATLIER_API_ROUTE}/reviews?sort=${sort}&product_id=${req.query.product_id}&page=${page}&count=${count}`, {
+    axios.get(`${process.env.HOSTED_ATLIER_API_ROUTE}/reviews?sort=${sort}&product_id=${req.query.product_id}&page=${page}&count=${count}`, {
       headers: {
         Authorization: process.env.GITHUB_API_KEY,
       },
@@ -20,7 +20,7 @@ module.exports = {
   },
   getMeta: (req, res) => {
     // Finding a way to add query params in axios config would be cleaner
-    axios.get(`${process.env.ATLIER_API_ROUTE}/reviews/meta?product_id=${req.query.product_id}`, {
+    axios.get(`${process.env.HOSTED_ATLIER_API_ROUTE}/reviews/meta?product_id=${req.query.product_id}`, {
       headers: {
         Authorization: process.env.GITHUB_API_KEY,
       },
@@ -37,7 +37,7 @@ module.exports = {
   post: (req, res) => {
     // Finding a way to add query params in axios config would be cleaner
     axios.post(
-      `${process.env.ATLIER_API_ROUTE}/reviews`,
+      `${process.env.HOSTED_ATLIER_API_ROUTE}/reviews`,
       req.body,
       {
         headers: {
@@ -54,7 +54,7 @@ module.exports = {
       });
   },
   putHelpful: (req, res) => {
-    axios.put(`${process.env.ATLIER_API_ROUTE}/reviews/${req.params.review_id}/helpful`, null, {
+    axios.put(`${process.env.HOSTED_ATLIER_API_ROUTE}/reviews/${req.params.review_id}/helpful`, null, {
       headers: {
         Authorization: process.env.GITHUB_API_KEY,
       },
@@ -67,7 +67,7 @@ module.exports = {
       });
   },
   putReport: (req, res) => {
-    axios.put(`${process.env.ATLIER_API_ROUTE}/reviews/${req.params.review_id}/report`, null, {
+    axios.put(`${process.env.HOSTED_ATLIER_API_ROUTE}/reviews/${req.params.review_id}/report`, null, {
       headers: {
         Authorization: process.env.GITHUB_API_KEY,
       },

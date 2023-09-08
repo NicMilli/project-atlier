@@ -41,6 +41,8 @@ function ProductDetails({ handleScroll }) {
     return <Spinner />;
   }
 
+  if (!styles.results && Object.keys(productInfo).length === 0) { navigate('/NotFound'); }
+
   return (
     <div>
       {expanded || zoom ? (

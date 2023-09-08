@@ -66,6 +66,7 @@ function ItemsList({ relatedIndex }) {
     return <div>loading...</div>;
   }
 
+  console.log('relatedProducts', relatedProducts);
   return relatedProducts && (
     <div>
       <ComparisonModal />

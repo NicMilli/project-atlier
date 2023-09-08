@@ -51,7 +51,7 @@ function removeFromOutfit(state = initialState, action) {
   if (index > -1) {
     state.outfitList.splice(index, 1);
   }
-  toast.success(`${action.payload.details.name} has been removed from Your Outfit 💔`);
+  toast.error(`${action.payload.details.name} has been removed from Your Outfit 💔`);
 }
 
 function generateCombinedProductFeatures(state = initialState, action) {

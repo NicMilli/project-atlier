@@ -19,7 +19,7 @@ module.exports = {
     // set session cookie
     res.cookie('sessionID', sessionID, { httpOnly: true });
     if (req.query.product_id) {
-      axios.get(`${process.env.ATLIER_API_ROUTE}/qa/questions/?product_id=${req.query.product_id}&page=${req.query.page}&count=${req.query.count}`, {
+      axios.get(`${process.env.HOSTED_ATLIER_API_ROUTE}/qa/questions/?product_id=${req.query.product_id}&page=${req.query.page}&count=${req.query.count}`, {
         headers: {
           Authorization: process.env.GITHUB_API_KEY,
         },
@@ -31,7 +31,7 @@ module.exports = {
           res.status(404).send(err);
         });
     } else {
-      axios.get(`${process.env.ATLIER_API_ROUTE}/qa/questions/${req.params.question_id}/answers?page=${page}&count=${count}`, {
+      axios.get(`${process.env.HOSTED_ATLIER_API_ROUTE}/qa/questions/${req.params.question_id}/answers?page=${page}&count=${count}`, {
         headers: {
           Authorization: process.env.GITHUB_API_KEY,
         },
@@ -46,7 +46,7 @@ module.exports = {
   },
   postQuestion: (req, res) => {
     axios.post(
-      `${process.env.ATLIER_API_ROUTE}/qa/questions`,
+      `${process.env.HOSTED_ATLIER_API_ROUTE}/qa/questions`,
       req.body,
       {
         headers: {
@@ -63,7 +63,7 @@ module.exports = {
   },
   postAnswer: (req, res) => {
     axios.post(
-      `${process.env.ATLIER_API_ROUTE}/qa/questions/${req.params.question_id}/answers`,
+      `${process.env.HOSTED_ATLIER_API_ROUTE}/qa/questions/${req.params.question_id}/answers`,
       req.body,
       {
         headers: {
@@ -81,7 +81,7 @@ module.exports = {
   putQuestionHelpful: (req, res) => {
     if (!sessions[req.cookies.sessionID].helpfulQuestions.has(req.params.question_id)) {
       axios.put(
-        `${process.env.ATLIER_API_ROUTE}/qa/questions/${req.params.question_id}/helpful`,
+        `${process.env.HOSTED_ATLIER_API_ROUTE}/qa/questions/${req.params.question_id}/helpful`,
         null,
         {
           headers: {
@@ -103,7 +103,7 @@ module.exports = {
   putAnswerHelpful: (req, res) => {
     if (!sessions[req.cookies.sessionID].helpfulAnswers.has(req.params.answer_id)) {
       axios.put(
-        `${process.env.ATLIER_API_ROUTE}/qa/answers/${req.params.answer_id}/helpful`,
+        `${process.env.HOSTED_ATLIER_API_ROUTE}/qa/answers/${req.params.answer_id}/helpful`,
         null,
         {
           headers: {
@@ -124,7 +124,7 @@ module.exports = {
   },
   putAnswerReport: (req, res) => {
     axios.put(
-      `${process.env.ATLIER_API_ROUTE}/qa/answers/${req.params.answer_id}/report`,
+      `${process.env.HOSTED_ATLIER_API_ROUTE}/qa/answers/${req.params.answer_id}/report`,
       null,
       {
         headers: {

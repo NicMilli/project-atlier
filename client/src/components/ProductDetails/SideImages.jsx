@@ -23,7 +23,7 @@ function SideImages() {
   return (
     <>
       {
-        selectedStyle.photos.map((photo, ind) => {
+        selectedStyle.photos && selectedStyle.photos.map((photo, ind) => {
           if (ind - (7 * page) >= 0 && ind - (7 * page) <= 6) {
             return (
               <button className="buttonWrap" aria-label="side-img" onClick={() => handleImageClick(photo, ind)} type="button" key={nanoid()}>

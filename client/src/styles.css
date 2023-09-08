@@ -382,6 +382,8 @@ animation: spinner 1.5s linear infinite;
 .loading {
   margin: 20px;
   flex-direction: column;
+  height: 60vh;
+  width: 100vw;
 }
 
 
@@ -421,5 +423,16 @@ animation: spinner 1.5s linear infinite;
 /***** Questions and Answers *****/
 #qna-block {
   display: flex;
+  justify-content: center;
+}
+
+.imageViewError {
+  width: 50vw;
+  height: 60vh;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }

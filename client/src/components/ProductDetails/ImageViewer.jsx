@@ -63,18 +63,32 @@ function ImageViewer() {
   };
 
   if (!selectedStyle.photos || selectedStyle.photos[0].url === '') {
-    return null;
+    return (
+      <div className="imageViewError">
+        <div className="inline">
+          <div className="sideGrid">
+            <SideImages />
+          </div>
+          <div className="center large-image">
+            <input type="image" className={expanded ? 'expandedImage' : 'mainImage'} aria-label="main-image" src="https://images.unsplash.com/photo-1584824486509-112e4181ff6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bm90JTIwZm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60" alt="SelectedImage" key={selectedStyle.style_id} ref={imgRef} height="2000" />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
     zoom && !expanded
       ? (
         <div className="imageViewPort expanded center">
+
           <button className="imgContainer" type="button" aria-label="image-window" onClick={handleZoom} onMouseMove={mousePos} style={{ width: `${dimensions[0]}px`, height: `${dimensions[1]}px`, overflow: 'hidden' }}>
+
             <div style={{
               width: `${dimensions[0] * 4}px`, height: `${dimensions[1] * 4}px`, overflow: 'hidden', cursor: 'zoom-out', position: 'relative', left: `${-1.5 * dimensions[0]}px`, top: `${-1.5 * dimensions[1]}px`,
             }}
             >
+
               <img
                 src={selectedStyle.photos[imageIndex].url || 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bm90JTIwZm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'}
                 alt="SelectedImage"
@@ -83,26 +97,36 @@ function ImageViewer() {
                   width: `${dimensions[0] * 2.5}px`, height: `${dimensions[1] * 2.5}px`, position: 'relative', bottom: `${relPosition[1] - (dimensions[1] * 1.495)}px`, right: `${relPosition[0] - (dimensions[0] * 0.74)}px`, objectFit: 'cover',
                 }}
               />
+
             </div>
           </button>
         </div>
       )
       : (
         <div className="imageView">
+
           <button type="button" className="topRight buttonWrap" data-testid="expandBtn" onClick={() => { dispatch(toggleState('expanded')); }}>
             {expanded ? <FaCompress size={22} /> : <FaExpand size={22} /> }
           </button>
+
           <div className={expanded ? 'expanded' : 'inline'}>
             <div className="sideGrid">
+
               {page > 0 ? <FaChevronUp className="chevron" data-testid="chevron-icon" onClick={() => dispatch(handleStateUpdate({ name: 'page', value: page - 1 }))} /> : null}
+
               <SideImages />
+
               {page < ((selectedStyle.photos.length / 7) - 1)
                 ? <FaChevronDown className="chevron" aria-label="down-arrow" data-testid="chevron-icon" onClick={() => dispatch(handleStateUpdate({ name: 'page', value: page + 1 }))} />
                 : null}
+
             </div>
             <div className="center large-image">
+
               {imageIndex > 0 ? <FaChevronLeft className="chevron" aria-label="left-arrow" data-testid="chevron-icon" onClick={() => handleHorizontalScroll('left')} /> : null}
-              <input type="image" className={expanded ? 'expandedImage' : 'mainImage'} aria-label="main-image" src={(expanded ? selectedStyle.photos[imageIndex].url : selectedStyle.photos[imageIndex].thumbnail_url) || 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bm90JTIwZm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'} alt="SelectedImage" key={selectedStyle.style_id} ref={imgRef} onClick={expanded ? handleZoom : null} height="2000" />
+
+              <input type="image" className={expanded ? 'expandedImage' : 'mainImage'} aria-label="main-image" src={((expanded ? selectedStyle.photos[imageIndex].url : selectedStyle.photos[imageIndex].thumbnail_url)) || 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bm90JTIwZm91bmR8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60'} alt="SelectedImage" key={selectedStyle.style_id} ref={imgRef} onClick={expanded ? handleZoom : null} height="2000" />
+
               {imageIndex < selectedStyle.photos.length - 1 ? <FaChevronRight className="chevron" data-testid="chevron-icon" aria-label="right-arrow" onClick={() => handleHorizontalScroll('right')} /> : null}
             </div>
           </div>
