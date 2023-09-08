@@ -1,6 +1,7 @@
 require('dotenv').config();
 const webpack = require('webpack');
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const path = require('path');
 
@@ -53,6 +54,11 @@ module.exports = {
         // PORT: JSON.stringify(process.env.PORT),
         APP_URL: JSON.stringify(process.env.APP_URL),
       },
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'robots.txt', to: 'robots.txt' },
+      ],
     }),
   ],
 };

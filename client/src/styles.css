@@ -106,8 +106,8 @@ body {
 }
 
 .body-no-navbar {
-  margin-left: 5vw;
-  margin-right: 5vw;
+  margin-left: 4vw;
+  margin-right: 4vw;
 }
 
 h1 {
@@ -382,7 +382,7 @@ animation: spinner 1.5s linear infinite;
 .loading {
   margin: 20px;
   flex-direction: column;
-  height: 60vh;
+  height: 80vh;
   width: 100vw;
 }
 

@@ -77,6 +77,9 @@ function ReviewTile({ reviewsObj }) {
               toggleModalImage(!modalImage);
               togglePhotoState(photo);
             }}
+            loading="lazy"
+            height={20}
+            width={20}
           />
         </span>
       ))}

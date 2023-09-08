@@ -50,8 +50,8 @@ button {
   z-index: '2';
   border: 1px solid black;
   background: none;
-  box-shadow: 4px 4px 20px black;
-  border-radius: 2%;
+  box-shadow: 4px 8px 15px black;
+  border-radius: 1rem;
 }
 
 .mainDiv {
@@ -174,19 +174,44 @@ button {
 .mainImage {
   margin: 0 15px;
   display: block;
-  max-height: 55vh;
+  max-height: 59vh;
   max-width: 40vw;
   box-shadow: 2px 2px 10px black;
-  border-radius: 2%;
+  border-radius: 1rem;
 }
+
+.imgHolder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  width: 40vw;
+} 
+
+.imgHolderExpanded {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  width: 90vw;
+} 
 
 .expandedImage {
   cursor: zoom-in;
+  display: block;
   margin: 0 15px;
   max-height: 59vh;
   max-width: 70vw;
-  box-shadow: 4px 4px 20px black;
-  border-radius: 2%;
+  box-shadow: 4px 8px 15px black;
+  border-radius: 1rem;
+}
+
+.chevronHolder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 26px;
+  width: 26px;
 }
 
 .large-image {
@@ -391,11 +416,15 @@ button {
 .style-name {
   color:#804BAC;
   font-size: 20px;
-  font-weight: 400;
 }
 
 .style-name-dark {
   color:#dec2f6;
   font-size: 20px;
-  font-weight: 400;
+}
+
+.left {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }

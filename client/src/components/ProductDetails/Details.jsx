@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  FaHeart, FaTwitter, FaPinterest, FaFacebookF,
+  FaHeart, FaTwitter, FaPinterest, FaFacebookF, FaChevronRight,
 } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import QuarterStarsAverageRating from '../ReviewsRatings/QuarterStarsAverageRating';
@@ -105,6 +105,7 @@ function Details({ handleScroll }) {
         <div className="flex">
           { selectedStyle.sale_price ? (
             <p className="sale price">
+
               {`$${selectedStyle.sale_price}`}
             &nbsp;&nbsp;
             </p>
@@ -113,9 +114,19 @@ function Details({ handleScroll }) {
             {`$${selectedStyle.original_price}`}
           </p>
         </div>
-        <p className={dark ? 'style-name-dark' : 'style-name'}>
-          {selectedStyle.name}
-        </p>
+
+        <div style={{ display: 'flex' }}>
+          <p className={dark ? 'style-name-dark' : 'style-name'} style={{ fontWeight: '600' }}>
+            STYLE
+            {' '}
+            <FaChevronRight size={15} />
+            {' '}
+          </p>
+          <p className={dark ? 'style-name-dark' : 'style-name'}>
+            {selectedStyle.name}
+          </p>
+        </div>
+
         <br />
         <StyleList />
       </div>
@@ -149,7 +160,7 @@ function Details({ handleScroll }) {
           <button className="cart-btn button-dark" type="button" aria-label="cart-btn" onClick={handleCartClick}>
             Add to cart
           </button>
-          <button className="outfit-btn button-light" type="button" onClick={JSON.parse(localStorage.getItem(details.id)) ? handleRemoveOutfitClick : handleAddOutfitClick}>
+          <button className="outfit-btn button-light" aria-label="Add to outfit" type="button" onClick={JSON.parse(localStorage.getItem(details.id)) ? handleRemoveOutfitClick : handleAddOutfitClick}>
             <FaHeart style={{ fill: JSON.parse(localStorage.getItem(details.id)) ? 'red' : 'black' }} />
           </button>
         </div>

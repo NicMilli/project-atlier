@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaRegCheckCircle } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
 function Description() {
@@ -20,10 +20,12 @@ function Description() {
           {details?.features?.map((item) => {
             const { feature, value } = item;
             return value ? (
-              <li className="feature-item center" key={`${feature}${value}`}>
-                <FaRegCheckCircle />
-                &nbsp;
+              <li className="feature-item left" key={`${feature}${value}`}>
+
+                <FaCheck />
+                  &nbsp;
                 {`  ${feature}  :  ${value}`}
+
               </li>
             ) : null;
           })}

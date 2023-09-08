@@ -33,9 +33,14 @@ function App() {
       <ToastContainer />
       <Router>
         <Navbar handleScroll={handleScroll} />
-        <div className={dark ? 'theme-dark' : null}>
+        <div
+          className={dark ? 'theme-dark' : null}
+          style={{
+            maxHeight: '80vh', overflow: 'hidden', display: 'flex', flexDirection: 'column',
+          }}
+        >
           <SiteAnnouncement />
-          <div className="body-no-navbar">
+          <div className="body-no-navbar" style={{ overflow: 'auto' }}>
             <Routes>
               <Route path="/" element={<Navigate to="/1" />} />
               <Route path="/NotFound" element={<div>404 not found...</div>} />

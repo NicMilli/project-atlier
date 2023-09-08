@@ -13,9 +13,10 @@ function ThumbnailImageModal({ RNRCSS, toggleModalImage, photo }) {
             key={photo.id}
             src={photo.url}
             alt={`${photo.id}`}
-            height="500"
+            height={20}
             width="auto"
             onClick={() => { toggleModalImage(true); }}
+            loading="lazy"
           />
           <input type="submit" className={RNRCSS['close-modal']} onClick={() => { toggleModalImage(false); }} value="X" />
         </div>

@@ -20,13 +20,13 @@ function Navbar({ handleScroll }) {
     handleScroll('rnr');
   };
 
-  const setDark = (target) => {
+  const setDark = () => {
     dispatch(toggleState('dark'));
   };
 
   return (
     <div className="navbar">
-      <img src={logo} className="navbar-logo" alt="ww-logo" />
+      <img src={logo} className="navbar-logo" alt="ww-logo" width={30} height={30} />
       <h1 className="navbar-title">WiredWardrobe</h1>
       <div className="navbar-headers">
         <h5 className="navbar-related navbar-sections" onClick={handleRelatedClick}>Related Items</h5>
