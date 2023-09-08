@@ -72,12 +72,6 @@ button {
   display: grid;
 }
 
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .circleImage {
   object-fit: cover;
   display: flex;

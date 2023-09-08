@@ -31,14 +31,6 @@ function ItemsList({ relatedIndex }) {
     }
   }
 
-  // ATTEMPTED REFACTOR, DOES NOT WORK
-  // const findImage = function (item) {
-  //   for (let i = 0; i < item.photos.results.length; i++) {
-  //     const style = item.photos.results[i];
-  //     return style.photos.find(photo => photo.thumbnail_url);
-  //   };
-  // };
-
   // Produces a card for each related item
   function renderList(item, index) {
     return (
@@ -66,7 +58,6 @@ function ItemsList({ relatedIndex }) {
     return <div>loading...</div>;
   }
 
-  console.log('relatedProducts', relatedProducts);
   return relatedProducts && (
     <div>
       <ComparisonModal />

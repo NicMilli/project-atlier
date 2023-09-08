@@ -30,8 +30,10 @@ function ImageViewer() {
   const [relPosition, setRelPosition] = useState([]);
 
   useEffect(() => {
-    const img = new Image();
-    img.src = selectedStyle.photos[imageIndex].url;
+    selectedStyle.photos?.forEach((photo) => {
+      const img = new Image();
+      img.src = photo.url || null;
+    });
   }, [imageIndex]);
 
   const handleHorizontalScroll = (direction) => {

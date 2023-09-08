@@ -116,11 +116,11 @@ function Details({ handleScroll }) {
         </div>
 
         <div style={{ display: 'flex' }}>
-          <p className={dark ? 'style-name-dark' : 'style-name'} style={{ fontWeight: '600' }}>
+          <p className={dark ? 'style-name-dark' : 'style-name'} style={{ fontWeight: '600', display: 'flex', alignItems: 'center' }}>
             STYLE
             {' '}
-            <FaChevronRight size={15} />
-            {' '}
+            <FaChevronRight size={18} />
+            &nbsp;
           </p>
           <p className={dark ? 'style-name-dark' : 'style-name'}>
             {selectedStyle.name}
