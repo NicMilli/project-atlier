@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   FaHeart, FaTwitter, FaPinterest, FaFacebookF, FaChevronRight,
-} from 'react-icons/fa';
+} from 'react-icons/fa/index';
 import { toast } from 'react-toastify';
 import QuarterStarsAverageRating from '../ReviewsRatings/QuarterStarsAverageRating';
 import StyleList from './StyleList';
